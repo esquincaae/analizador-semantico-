@@ -1,0 +1,747 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> start
+Rule 1     start -> structures
+Rule 2     structures -> structures structure
+Rule 3     structures -> structure
+Rule 4     structure -> var_decl
+Rule 5     structure -> func_decl
+Rule 6     structure -> for_decl
+Rule 7     structure -> if_decl
+Rule 8     structure -> statement
+Rule 9     var_decl -> VAR TYPE IDENTIFIER EQUAL value SEMICOLON
+Rule 10    func_decl -> FUNC IDENTIFIER LPAREN RPAREN LBRACKET statements RBRACKET
+Rule 11    for_decl -> FOR LPAREN var_decl condition SEMICOLON increment RPAREN LBRACKET statements RBRACKET
+Rule 12    if_decl -> IF LPAREN condition RPAREN LBRACKET statements RBRACKET else_decl
+Rule 13    else_decl -> ELSE LBRACKET statements RBRACKET
+Rule 14    statements -> statements statement
+Rule 15    statements -> statement
+Rule 16    statement -> PRINT LPAREN STRING RPAREN SEMICOLON
+Rule 17    statement -> PRINT LPAREN IDENTIFIER RPAREN SEMICOLON
+Rule 18    value -> INT
+Rule 19    value -> FLOAT
+Rule 20    value -> BOOLEAN
+Rule 21    value -> STRING
+Rule 22    value -> CHAR
+Rule 23    condition -> IDENTIFIER OPERATOR value
+Rule 24    condition -> IDENTIFIER OPERATOR IDENTIFIER
+Rule 25    increment -> IDENTIFIER PM
+
+Terminals, with rules where they appear
+
+BOOLEAN              : 20
+CHAR                 : 22
+ELSE                 : 13
+EQUAL                : 9
+FLOAT                : 19
+FOR                  : 11
+FUNC                 : 10
+IDENTIFIER           : 9 10 17 23 24 24 25
+IF                   : 12
+INT                  : 18
+LBRACKET             : 10 11 12 13
+LPAREN               : 10 11 12 16 17
+OPERATOR             : 23 24
+PM                   : 25
+PRINT                : 16 17
+RBRACKET             : 10 11 12 13
+RPAREN               : 10 11 12 16 17
+SEMICOLON            : 9 11 16 17
+STRING               : 16 21
+TYPE                 : 9
+VAR                  : 9
+error                : 
+
+Nonterminals, with rules where they appear
+
+condition            : 11 12
+else_decl            : 12
+for_decl             : 6
+func_decl            : 5
+if_decl              : 7
+increment            : 11
+start                : 0
+statement            : 8 14 15
+statements           : 10 11 12 13 14
+structure            : 2 3
+structures           : 1 2
+value                : 9 23
+var_decl             : 4 11
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . start
+    (1) start -> . structures
+    (2) structures -> . structures structure
+    (3) structures -> . structure
+    (4) structure -> . var_decl
+    (5) structure -> . func_decl
+    (6) structure -> . for_decl
+    (7) structure -> . if_decl
+    (8) structure -> . statement
+    (9) var_decl -> . VAR TYPE IDENTIFIER EQUAL value SEMICOLON
+    (10) func_decl -> . FUNC IDENTIFIER LPAREN RPAREN LBRACKET statements RBRACKET
+    (11) for_decl -> . FOR LPAREN var_decl condition SEMICOLON increment RPAREN LBRACKET statements RBRACKET
+    (12) if_decl -> . IF LPAREN condition RPAREN LBRACKET statements RBRACKET else_decl
+    (16) statement -> . PRINT LPAREN STRING RPAREN SEMICOLON
+    (17) statement -> . PRINT LPAREN IDENTIFIER RPAREN SEMICOLON
+
+    VAR             shift and go to state 9
+    FUNC            shift and go to state 10
+    FOR             shift and go to state 11
+    IF              shift and go to state 12
+    PRINT           shift and go to state 13
+
+    start                          shift and go to state 1
+    structures                     shift and go to state 2
+    structure                      shift and go to state 3
+    var_decl                       shift and go to state 4
+    func_decl                      shift and go to state 5
+    for_decl                       shift and go to state 6
+    if_decl                        shift and go to state 7
+    statement                      shift and go to state 8
+
+state 1
+
+    (0) S' -> start .
+
+
+
+state 2
+
+    (1) start -> structures .
+    (2) structures -> structures . structure
+    (4) structure -> . var_decl
+    (5) structure -> . func_decl
+    (6) structure -> . for_decl
+    (7) structure -> . if_decl
+    (8) structure -> . statement
+    (9) var_decl -> . VAR TYPE IDENTIFIER EQUAL value SEMICOLON
+    (10) func_decl -> . FUNC IDENTIFIER LPAREN RPAREN LBRACKET statements RBRACKET
+    (11) for_decl -> . FOR LPAREN var_decl condition SEMICOLON increment RPAREN LBRACKET statements RBRACKET
+    (12) if_decl -> . IF LPAREN condition RPAREN LBRACKET statements RBRACKET else_decl
+    (16) statement -> . PRINT LPAREN STRING RPAREN SEMICOLON
+    (17) statement -> . PRINT LPAREN IDENTIFIER RPAREN SEMICOLON
+
+    $end            reduce using rule 1 (start -> structures .)
+    VAR             shift and go to state 9
+    FUNC            shift and go to state 10
+    FOR             shift and go to state 11
+    IF              shift and go to state 12
+    PRINT           shift and go to state 13
+
+    structure                      shift and go to state 14
+    var_decl                       shift and go to state 4
+    func_decl                      shift and go to state 5
+    for_decl                       shift and go to state 6
+    if_decl                        shift and go to state 7
+    statement                      shift and go to state 8
+
+state 3
+
+    (3) structures -> structure .
+
+    VAR             reduce using rule 3 (structures -> structure .)
+    FUNC            reduce using rule 3 (structures -> structure .)
+    FOR             reduce using rule 3 (structures -> structure .)
+    IF              reduce using rule 3 (structures -> structure .)
+    PRINT           reduce using rule 3 (structures -> structure .)
+    $end            reduce using rule 3 (structures -> structure .)
+
+
+state 4
+
+    (4) structure -> var_decl .
+
+    VAR             reduce using rule 4 (structure -> var_decl .)
+    FUNC            reduce using rule 4 (structure -> var_decl .)
+    FOR             reduce using rule 4 (structure -> var_decl .)
+    IF              reduce using rule 4 (structure -> var_decl .)
+    PRINT           reduce using rule 4 (structure -> var_decl .)
+    $end            reduce using rule 4 (structure -> var_decl .)
+
+
+state 5
+
+    (5) structure -> func_decl .
+
+    VAR             reduce using rule 5 (structure -> func_decl .)
+    FUNC            reduce using rule 5 (structure -> func_decl .)
+    FOR             reduce using rule 5 (structure -> func_decl .)
+    IF              reduce using rule 5 (structure -> func_decl .)
+    PRINT           reduce using rule 5 (structure -> func_decl .)
+    $end            reduce using rule 5 (structure -> func_decl .)
+
+
+state 6
+
+    (6) structure -> for_decl .
+
+    VAR             reduce using rule 6 (structure -> for_decl .)
+    FUNC            reduce using rule 6 (structure -> for_decl .)
+    FOR             reduce using rule 6 (structure -> for_decl .)
+    IF              reduce using rule 6 (structure -> for_decl .)
+    PRINT           reduce using rule 6 (structure -> for_decl .)
+    $end            reduce using rule 6 (structure -> for_decl .)
+
+
+state 7
+
+    (7) structure -> if_decl .
+
+    VAR             reduce using rule 7 (structure -> if_decl .)
+    FUNC            reduce using rule 7 (structure -> if_decl .)
+    FOR             reduce using rule 7 (structure -> if_decl .)
+    IF              reduce using rule 7 (structure -> if_decl .)
+    PRINT           reduce using rule 7 (structure -> if_decl .)
+    $end            reduce using rule 7 (structure -> if_decl .)
+
+
+state 8
+
+    (8) structure -> statement .
+
+    VAR             reduce using rule 8 (structure -> statement .)
+    FUNC            reduce using rule 8 (structure -> statement .)
+    FOR             reduce using rule 8 (structure -> statement .)
+    IF              reduce using rule 8 (structure -> statement .)
+    PRINT           reduce using rule 8 (structure -> statement .)
+    $end            reduce using rule 8 (structure -> statement .)
+
+
+state 9
+
+    (9) var_decl -> VAR . TYPE IDENTIFIER EQUAL value SEMICOLON
+
+    TYPE            shift and go to state 15
+
+
+state 10
+
+    (10) func_decl -> FUNC . IDENTIFIER LPAREN RPAREN LBRACKET statements RBRACKET
+
+    IDENTIFIER      shift and go to state 16
+
+
+state 11
+
+    (11) for_decl -> FOR . LPAREN var_decl condition SEMICOLON increment RPAREN LBRACKET statements RBRACKET
+
+    LPAREN          shift and go to state 17
+
+
+state 12
+
+    (12) if_decl -> IF . LPAREN condition RPAREN LBRACKET statements RBRACKET else_decl
+
+    LPAREN          shift and go to state 18
+
+
+state 13
+
+    (16) statement -> PRINT . LPAREN STRING RPAREN SEMICOLON
+    (17) statement -> PRINT . LPAREN IDENTIFIER RPAREN SEMICOLON
+
+    LPAREN          shift and go to state 19
+
+
+state 14
+
+    (2) structures -> structures structure .
+
+    VAR             reduce using rule 2 (structures -> structures structure .)
+    FUNC            reduce using rule 2 (structures -> structures structure .)
+    FOR             reduce using rule 2 (structures -> structures structure .)
+    IF              reduce using rule 2 (structures -> structures structure .)
+    PRINT           reduce using rule 2 (structures -> structures structure .)
+    $end            reduce using rule 2 (structures -> structures structure .)
+
+
+state 15
+
+    (9) var_decl -> VAR TYPE . IDENTIFIER EQUAL value SEMICOLON
+
+    IDENTIFIER      shift and go to state 20
+
+
+state 16
+
+    (10) func_decl -> FUNC IDENTIFIER . LPAREN RPAREN LBRACKET statements RBRACKET
+
+    LPAREN          shift and go to state 21
+
+
+state 17
+
+    (11) for_decl -> FOR LPAREN . var_decl condition SEMICOLON increment RPAREN LBRACKET statements RBRACKET
+    (9) var_decl -> . VAR TYPE IDENTIFIER EQUAL value SEMICOLON
+
+    VAR             shift and go to state 9
+
+    var_decl                       shift and go to state 22
+
+state 18
+
+    (12) if_decl -> IF LPAREN . condition RPAREN LBRACKET statements RBRACKET else_decl
+    (23) condition -> . IDENTIFIER OPERATOR value
+    (24) condition -> . IDENTIFIER OPERATOR IDENTIFIER
+
+    IDENTIFIER      shift and go to state 24
+
+    condition                      shift and go to state 23
+
+state 19
+
+    (16) statement -> PRINT LPAREN . STRING RPAREN SEMICOLON
+    (17) statement -> PRINT LPAREN . IDENTIFIER RPAREN SEMICOLON
+
+    STRING          shift and go to state 25
+    IDENTIFIER      shift and go to state 26
+
+
+state 20
+
+    (9) var_decl -> VAR TYPE IDENTIFIER . EQUAL value SEMICOLON
+
+    EQUAL           shift and go to state 27
+
+
+state 21
+
+    (10) func_decl -> FUNC IDENTIFIER LPAREN . RPAREN LBRACKET statements RBRACKET
+
+    RPAREN          shift and go to state 28
+
+
+state 22
+
+    (11) for_decl -> FOR LPAREN var_decl . condition SEMICOLON increment RPAREN LBRACKET statements RBRACKET
+    (23) condition -> . IDENTIFIER OPERATOR value
+    (24) condition -> . IDENTIFIER OPERATOR IDENTIFIER
+
+    IDENTIFIER      shift and go to state 24
+
+    condition                      shift and go to state 29
+
+state 23
+
+    (12) if_decl -> IF LPAREN condition . RPAREN LBRACKET statements RBRACKET else_decl
+
+    RPAREN          shift and go to state 30
+
+
+state 24
+
+    (23) condition -> IDENTIFIER . OPERATOR value
+    (24) condition -> IDENTIFIER . OPERATOR IDENTIFIER
+
+    OPERATOR        shift and go to state 31
+
+
+state 25
+
+    (16) statement -> PRINT LPAREN STRING . RPAREN SEMICOLON
+
+    RPAREN          shift and go to state 32
+
+
+state 26
+
+    (17) statement -> PRINT LPAREN IDENTIFIER . RPAREN SEMICOLON
+
+    RPAREN          shift and go to state 33
+
+
+state 27
+
+    (9) var_decl -> VAR TYPE IDENTIFIER EQUAL . value SEMICOLON
+    (18) value -> . INT
+    (19) value -> . FLOAT
+    (20) value -> . BOOLEAN
+    (21) value -> . STRING
+    (22) value -> . CHAR
+
+    INT             shift and go to state 35
+    FLOAT           shift and go to state 36
+    BOOLEAN         shift and go to state 37
+    STRING          shift and go to state 38
+    CHAR            shift and go to state 39
+
+    value                          shift and go to state 34
+
+state 28
+
+    (10) func_decl -> FUNC IDENTIFIER LPAREN RPAREN . LBRACKET statements RBRACKET
+
+    LBRACKET        shift and go to state 40
+
+
+state 29
+
+    (11) for_decl -> FOR LPAREN var_decl condition . SEMICOLON increment RPAREN LBRACKET statements RBRACKET
+
+    SEMICOLON       shift and go to state 41
+
+
+state 30
+
+    (12) if_decl -> IF LPAREN condition RPAREN . LBRACKET statements RBRACKET else_decl
+
+    LBRACKET        shift and go to state 42
+
+
+state 31
+
+    (23) condition -> IDENTIFIER OPERATOR . value
+    (24) condition -> IDENTIFIER OPERATOR . IDENTIFIER
+    (18) value -> . INT
+    (19) value -> . FLOAT
+    (20) value -> . BOOLEAN
+    (21) value -> . STRING
+    (22) value -> . CHAR
+
+    IDENTIFIER      shift and go to state 43
+    INT             shift and go to state 35
+    FLOAT           shift and go to state 36
+    BOOLEAN         shift and go to state 37
+    STRING          shift and go to state 38
+    CHAR            shift and go to state 39
+
+    value                          shift and go to state 44
+
+state 32
+
+    (16) statement -> PRINT LPAREN STRING RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 45
+
+
+state 33
+
+    (17) statement -> PRINT LPAREN IDENTIFIER RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 46
+
+
+state 34
+
+    (9) var_decl -> VAR TYPE IDENTIFIER EQUAL value . SEMICOLON
+
+    SEMICOLON       shift and go to state 47
+
+
+state 35
+
+    (18) value -> INT .
+
+    SEMICOLON       reduce using rule 18 (value -> INT .)
+    RPAREN          reduce using rule 18 (value -> INT .)
+
+
+state 36
+
+    (19) value -> FLOAT .
+
+    SEMICOLON       reduce using rule 19 (value -> FLOAT .)
+    RPAREN          reduce using rule 19 (value -> FLOAT .)
+
+
+state 37
+
+    (20) value -> BOOLEAN .
+
+    SEMICOLON       reduce using rule 20 (value -> BOOLEAN .)
+    RPAREN          reduce using rule 20 (value -> BOOLEAN .)
+
+
+state 38
+
+    (21) value -> STRING .
+
+    SEMICOLON       reduce using rule 21 (value -> STRING .)
+    RPAREN          reduce using rule 21 (value -> STRING .)
+
+
+state 39
+
+    (22) value -> CHAR .
+
+    SEMICOLON       reduce using rule 22 (value -> CHAR .)
+    RPAREN          reduce using rule 22 (value -> CHAR .)
+
+
+state 40
+
+    (10) func_decl -> FUNC IDENTIFIER LPAREN RPAREN LBRACKET . statements RBRACKET
+    (14) statements -> . statements statement
+    (15) statements -> . statement
+    (16) statement -> . PRINT LPAREN STRING RPAREN SEMICOLON
+    (17) statement -> . PRINT LPAREN IDENTIFIER RPAREN SEMICOLON
+
+    PRINT           shift and go to state 13
+
+    statements                     shift and go to state 48
+    statement                      shift and go to state 49
+
+state 41
+
+    (11) for_decl -> FOR LPAREN var_decl condition SEMICOLON . increment RPAREN LBRACKET statements RBRACKET
+    (25) increment -> . IDENTIFIER PM
+
+    IDENTIFIER      shift and go to state 51
+
+    increment                      shift and go to state 50
+
+state 42
+
+    (12) if_decl -> IF LPAREN condition RPAREN LBRACKET . statements RBRACKET else_decl
+    (14) statements -> . statements statement
+    (15) statements -> . statement
+    (16) statement -> . PRINT LPAREN STRING RPAREN SEMICOLON
+    (17) statement -> . PRINT LPAREN IDENTIFIER RPAREN SEMICOLON
+
+    PRINT           shift and go to state 13
+
+    statements                     shift and go to state 52
+    statement                      shift and go to state 49
+
+state 43
+
+    (24) condition -> IDENTIFIER OPERATOR IDENTIFIER .
+
+    RPAREN          reduce using rule 24 (condition -> IDENTIFIER OPERATOR IDENTIFIER .)
+    SEMICOLON       reduce using rule 24 (condition -> IDENTIFIER OPERATOR IDENTIFIER .)
+
+
+state 44
+
+    (23) condition -> IDENTIFIER OPERATOR value .
+
+    RPAREN          reduce using rule 23 (condition -> IDENTIFIER OPERATOR value .)
+    SEMICOLON       reduce using rule 23 (condition -> IDENTIFIER OPERATOR value .)
+
+
+state 45
+
+    (16) statement -> PRINT LPAREN STRING RPAREN SEMICOLON .
+
+    VAR             reduce using rule 16 (statement -> PRINT LPAREN STRING RPAREN SEMICOLON .)
+    FUNC            reduce using rule 16 (statement -> PRINT LPAREN STRING RPAREN SEMICOLON .)
+    FOR             reduce using rule 16 (statement -> PRINT LPAREN STRING RPAREN SEMICOLON .)
+    IF              reduce using rule 16 (statement -> PRINT LPAREN STRING RPAREN SEMICOLON .)
+    PRINT           reduce using rule 16 (statement -> PRINT LPAREN STRING RPAREN SEMICOLON .)
+    $end            reduce using rule 16 (statement -> PRINT LPAREN STRING RPAREN SEMICOLON .)
+    RBRACKET        reduce using rule 16 (statement -> PRINT LPAREN STRING RPAREN SEMICOLON .)
+
+
+state 46
+
+    (17) statement -> PRINT LPAREN IDENTIFIER RPAREN SEMICOLON .
+
+    VAR             reduce using rule 17 (statement -> PRINT LPAREN IDENTIFIER RPAREN SEMICOLON .)
+    FUNC            reduce using rule 17 (statement -> PRINT LPAREN IDENTIFIER RPAREN SEMICOLON .)
+    FOR             reduce using rule 17 (statement -> PRINT LPAREN IDENTIFIER RPAREN SEMICOLON .)
+    IF              reduce using rule 17 (statement -> PRINT LPAREN IDENTIFIER RPAREN SEMICOLON .)
+    PRINT           reduce using rule 17 (statement -> PRINT LPAREN IDENTIFIER RPAREN SEMICOLON .)
+    $end            reduce using rule 17 (statement -> PRINT LPAREN IDENTIFIER RPAREN SEMICOLON .)
+    RBRACKET        reduce using rule 17 (statement -> PRINT LPAREN IDENTIFIER RPAREN SEMICOLON .)
+
+
+state 47
+
+    (9) var_decl -> VAR TYPE IDENTIFIER EQUAL value SEMICOLON .
+
+    VAR             reduce using rule 9 (var_decl -> VAR TYPE IDENTIFIER EQUAL value SEMICOLON .)
+    FUNC            reduce using rule 9 (var_decl -> VAR TYPE IDENTIFIER EQUAL value SEMICOLON .)
+    FOR             reduce using rule 9 (var_decl -> VAR TYPE IDENTIFIER EQUAL value SEMICOLON .)
+    IF              reduce using rule 9 (var_decl -> VAR TYPE IDENTIFIER EQUAL value SEMICOLON .)
+    PRINT           reduce using rule 9 (var_decl -> VAR TYPE IDENTIFIER EQUAL value SEMICOLON .)
+    $end            reduce using rule 9 (var_decl -> VAR TYPE IDENTIFIER EQUAL value SEMICOLON .)
+    IDENTIFIER      reduce using rule 9 (var_decl -> VAR TYPE IDENTIFIER EQUAL value SEMICOLON .)
+
+
+state 48
+
+    (10) func_decl -> FUNC IDENTIFIER LPAREN RPAREN LBRACKET statements . RBRACKET
+    (14) statements -> statements . statement
+    (16) statement -> . PRINT LPAREN STRING RPAREN SEMICOLON
+    (17) statement -> . PRINT LPAREN IDENTIFIER RPAREN SEMICOLON
+
+    RBRACKET        shift and go to state 53
+    PRINT           shift and go to state 13
+
+    statement                      shift and go to state 54
+
+state 49
+
+    (15) statements -> statement .
+
+    RBRACKET        reduce using rule 15 (statements -> statement .)
+    PRINT           reduce using rule 15 (statements -> statement .)
+
+
+state 50
+
+    (11) for_decl -> FOR LPAREN var_decl condition SEMICOLON increment . RPAREN LBRACKET statements RBRACKET
+
+    RPAREN          shift and go to state 55
+
+
+state 51
+
+    (25) increment -> IDENTIFIER . PM
+
+    PM              shift and go to state 56
+
+
+state 52
+
+    (12) if_decl -> IF LPAREN condition RPAREN LBRACKET statements . RBRACKET else_decl
+    (14) statements -> statements . statement
+    (16) statement -> . PRINT LPAREN STRING RPAREN SEMICOLON
+    (17) statement -> . PRINT LPAREN IDENTIFIER RPAREN SEMICOLON
+
+    RBRACKET        shift and go to state 57
+    PRINT           shift and go to state 13
+
+    statement                      shift and go to state 54
+
+state 53
+
+    (10) func_decl -> FUNC IDENTIFIER LPAREN RPAREN LBRACKET statements RBRACKET .
+
+    VAR             reduce using rule 10 (func_decl -> FUNC IDENTIFIER LPAREN RPAREN LBRACKET statements RBRACKET .)
+    FUNC            reduce using rule 10 (func_decl -> FUNC IDENTIFIER LPAREN RPAREN LBRACKET statements RBRACKET .)
+    FOR             reduce using rule 10 (func_decl -> FUNC IDENTIFIER LPAREN RPAREN LBRACKET statements RBRACKET .)
+    IF              reduce using rule 10 (func_decl -> FUNC IDENTIFIER LPAREN RPAREN LBRACKET statements RBRACKET .)
+    PRINT           reduce using rule 10 (func_decl -> FUNC IDENTIFIER LPAREN RPAREN LBRACKET statements RBRACKET .)
+    $end            reduce using rule 10 (func_decl -> FUNC IDENTIFIER LPAREN RPAREN LBRACKET statements RBRACKET .)
+
+
+state 54
+
+    (14) statements -> statements statement .
+
+    RBRACKET        reduce using rule 14 (statements -> statements statement .)
+    PRINT           reduce using rule 14 (statements -> statements statement .)
+
+
+state 55
+
+    (11) for_decl -> FOR LPAREN var_decl condition SEMICOLON increment RPAREN . LBRACKET statements RBRACKET
+
+    LBRACKET        shift and go to state 58
+
+
+state 56
+
+    (25) increment -> IDENTIFIER PM .
+
+    RPAREN          reduce using rule 25 (increment -> IDENTIFIER PM .)
+
+
+state 57
+
+    (12) if_decl -> IF LPAREN condition RPAREN LBRACKET statements RBRACKET . else_decl
+    (13) else_decl -> . ELSE LBRACKET statements RBRACKET
+
+    ELSE            shift and go to state 60
+
+    else_decl                      shift and go to state 59
+
+state 58
+
+    (11) for_decl -> FOR LPAREN var_decl condition SEMICOLON increment RPAREN LBRACKET . statements RBRACKET
+    (14) statements -> . statements statement
+    (15) statements -> . statement
+    (16) statement -> . PRINT LPAREN STRING RPAREN SEMICOLON
+    (17) statement -> . PRINT LPAREN IDENTIFIER RPAREN SEMICOLON
+
+    PRINT           shift and go to state 13
+
+    statements                     shift and go to state 61
+    statement                      shift and go to state 49
+
+state 59
+
+    (12) if_decl -> IF LPAREN condition RPAREN LBRACKET statements RBRACKET else_decl .
+
+    VAR             reduce using rule 12 (if_decl -> IF LPAREN condition RPAREN LBRACKET statements RBRACKET else_decl .)
+    FUNC            reduce using rule 12 (if_decl -> IF LPAREN condition RPAREN LBRACKET statements RBRACKET else_decl .)
+    FOR             reduce using rule 12 (if_decl -> IF LPAREN condition RPAREN LBRACKET statements RBRACKET else_decl .)
+    IF              reduce using rule 12 (if_decl -> IF LPAREN condition RPAREN LBRACKET statements RBRACKET else_decl .)
+    PRINT           reduce using rule 12 (if_decl -> IF LPAREN condition RPAREN LBRACKET statements RBRACKET else_decl .)
+    $end            reduce using rule 12 (if_decl -> IF LPAREN condition RPAREN LBRACKET statements RBRACKET else_decl .)
+
+
+state 60
+
+    (13) else_decl -> ELSE . LBRACKET statements RBRACKET
+
+    LBRACKET        shift and go to state 62
+
+
+state 61
+
+    (11) for_decl -> FOR LPAREN var_decl condition SEMICOLON increment RPAREN LBRACKET statements . RBRACKET
+    (14) statements -> statements . statement
+    (16) statement -> . PRINT LPAREN STRING RPAREN SEMICOLON
+    (17) statement -> . PRINT LPAREN IDENTIFIER RPAREN SEMICOLON
+
+    RBRACKET        shift and go to state 63
+    PRINT           shift and go to state 13
+
+    statement                      shift and go to state 54
+
+state 62
+
+    (13) else_decl -> ELSE LBRACKET . statements RBRACKET
+    (14) statements -> . statements statement
+    (15) statements -> . statement
+    (16) statement -> . PRINT LPAREN STRING RPAREN SEMICOLON
+    (17) statement -> . PRINT LPAREN IDENTIFIER RPAREN SEMICOLON
+
+    PRINT           shift and go to state 13
+
+    statements                     shift and go to state 64
+    statement                      shift and go to state 49
+
+state 63
+
+    (11) for_decl -> FOR LPAREN var_decl condition SEMICOLON increment RPAREN LBRACKET statements RBRACKET .
+
+    VAR             reduce using rule 11 (for_decl -> FOR LPAREN var_decl condition SEMICOLON increment RPAREN LBRACKET statements RBRACKET .)
+    FUNC            reduce using rule 11 (for_decl -> FOR LPAREN var_decl condition SEMICOLON increment RPAREN LBRACKET statements RBRACKET .)
+    FOR             reduce using rule 11 (for_decl -> FOR LPAREN var_decl condition SEMICOLON increment RPAREN LBRACKET statements RBRACKET .)
+    IF              reduce using rule 11 (for_decl -> FOR LPAREN var_decl condition SEMICOLON increment RPAREN LBRACKET statements RBRACKET .)
+    PRINT           reduce using rule 11 (for_decl -> FOR LPAREN var_decl condition SEMICOLON increment RPAREN LBRACKET statements RBRACKET .)
+    $end            reduce using rule 11 (for_decl -> FOR LPAREN var_decl condition SEMICOLON increment RPAREN LBRACKET statements RBRACKET .)
+
+
+state 64
+
+    (13) else_decl -> ELSE LBRACKET statements . RBRACKET
+    (14) statements -> statements . statement
+    (16) statement -> . PRINT LPAREN STRING RPAREN SEMICOLON
+    (17) statement -> . PRINT LPAREN IDENTIFIER RPAREN SEMICOLON
+
+    RBRACKET        shift and go to state 65
+    PRINT           shift and go to state 13
+
+    statement                      shift and go to state 54
+
+state 65
+
+    (13) else_decl -> ELSE LBRACKET statements RBRACKET .
+
+    VAR             reduce using rule 13 (else_decl -> ELSE LBRACKET statements RBRACKET .)
+    FUNC            reduce using rule 13 (else_decl -> ELSE LBRACKET statements RBRACKET .)
+    FOR             reduce using rule 13 (else_decl -> ELSE LBRACKET statements RBRACKET .)
+    IF              reduce using rule 13 (else_decl -> ELSE LBRACKET statements RBRACKET .)
+    PRINT           reduce using rule 13 (else_decl -> ELSE LBRACKET statements RBRACKET .)
+    $end            reduce using rule 13 (else_decl -> ELSE LBRACKET statements RBRACKET .)
+
