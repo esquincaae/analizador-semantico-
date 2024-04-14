@@ -10,10 +10,10 @@ tokens = [
 
 t_VAR = r'\bvar\b'
 t_FUNC = r'\bfunc\b'
-t_FOR = r'\bfor\b'
-t_PRINT = r'\bprint\b'
-t_IF = r'\bif\b'
-t_ELSE = r'\belse\b'
+t_FOR = r'\bPara\b'
+t_PRINT = r'\bimprimir\b'
+t_IF = r'\bsi\b'
+t_ELSE = r'\bsino\b'
 t_TYPE = r'\b(ent|flot|bool|cad|car)\b'
 
 t_EQUAL = r'='

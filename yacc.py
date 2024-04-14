@@ -29,9 +29,9 @@ def p_var_decl(p):
         raise SyntaxError(f"Error de tipo: se esperaba un entero, se obtuvo {p[5]}")
     elif p[2] == "flot" and not isinstance(p[5], float):
         raise SyntaxError(f"Error de tipo: se esperaba un flotante, se obtuvo {p[5]}")
-    elif p[2] == "cad" and not (isinstance(p[5], str) and p[5].startswith('"') and p[5].endswith('"')):
+    elif p[2] == "cad" and not (p[5].startswith('"') and p[5].endswith('"')):
         raise SyntaxError(f"Error de tipo: se esperaba una cadena, se obtuvo {p[5]}")
-    elif p[2] == "car" and not (isinstance(p[5], str) and len(p[5]) == 3):
+    elif p[2] == "car" and not (p[5].startswith("'") and p[5].endswith("'") and len(p[5]) == 3):
         raise SyntaxError(f"Error de tipo: se esperaba un caracter, se obtuvo {p[5]}")
     elif p[2] == "bool":
         if p[5] != 'verdadero' and p[5] != 'falso':
@@ -40,6 +40,7 @@ def p_var_decl(p):
 def p_func_decl(p):
     'func_decl : FUNC IDENTIFIER LPAREN RPAREN LBRACKET statements RBRACKET'
     p[0] = {'type': 'func_decl', 'name': p[2], 'body': p[6]}
+    print(f"func: {p[6]}")
 
 def p_for_decl(p):
     'for_decl : FOR LPAREN var_decl condition SEMICOLON increment RPAREN LBRACKET statements RBRACKET'
@@ -64,7 +65,7 @@ def p_statements(p):
 def p_statement_print(p):
     '''statement : PRINT LPAREN STRING RPAREN SEMICOLON
                  | PRINT LPAREN IDENTIFIER RPAREN SEMICOLON'''
-    p[0] = ('print', p[3])
+    p[0] = {'type': 'print_stmt', 'value': p[3]}
 
 def p_value(p):
     '''value : INT
@@ -92,8 +93,6 @@ def p_error(p):
 parser = yacc.yacc()
 
 def parse(data):
-    #print(data)
     lexer.input(data)
     result = parser.parse(lexer=lexer)
-    #print(result)
     return result

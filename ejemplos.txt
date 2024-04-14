@@ -5,14 +5,10 @@ var cad saludo = "esto es una variable";
 var car letra = 'a';
 
 var car letra = 'a';
-Para(var ent i=0; i<3; i++){
-    imprimir(letra); 
-}
+Para(var ent i=0; i<3; i++){imprimir(letra); }
 
 var ent suma = 0;
-Para(var ent i = 1; i <= 5; i++){
-    imprimir("sumando");
-}
+Para(var ent i = 1; i <= 5; i++){imprimir("sumando");}
 imprimir("La suma es: ");
 imprimir(suma);
 
@@ -21,54 +17,7 @@ imprimir("esto es un imprimir");
 
 func test() {imprimir("esto es una funcion");}
 
-Para(var ent i=0; i<3; i++){
-    imprimir("esto es un ciclo for"); 
-}
+Para(var ent i=0; i<3; i++){imprimir("esto es un ciclo for"); }
 
 
-si (a > 1){
-    imprimir("esto es una sentencia if");
-}sino{
-    imprimir("esta es un else");
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-reglas anteriores //ignorar
--------------------------------------------
-var_decl | func_decl | for_decl | if_decl |
-
-    var_decl: VAR var_type IDENTIFIER value SEMICOLON
-
-    func_decl: FUNC IDENTIFIER PAREN PAREN BRACKET statement* BRACKET
-    statement: function_call SEMICOLON 
-    function_call: PRINT PAREN STRING PAREN 
-
-    for_decl: FOR PAREN var_decl condition SEMICOLON increment PAREN BRACKET statement* BRACKET
-    condition: IDENTIFIER OPERATOR value | IDENTIFIER OPERATOR IDENTIFIER
-    increment: IDENTIFIER PM
-
-    if_decl: IF PAREN condition PAREN BRACKET statement* BRACKET (ELSE BRACKET statement* BRACKET)?
+si (a > 1){imprimir("esto es una sentencia if");}sino{imprimir("esta es un else");}

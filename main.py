@@ -1,29 +1,28 @@
-from yacc import parser, parse
+from yacc import parse
 from lexer import lexer
-#import interpreter
+from interpreter import Interpreter
 
 def execute_parser(script):
     try:
-        # Analizar el script usando el parser definido
         result = parse(script)
         if result is not None:
-            tokens = "Análisis sintáctico completado sin errores. Mostrando tokens:\n"
-            # Inicializar el lexer con el script para extraer y mostrar los tokens
+            print("Análisis sintáctico completado sin errores. Mostrando tokens:\n")
             lexer.input(script)
             tokens = [(tok.type, ":",tok.value) for tok in lexer]
             return tokens
-            #print(tokens)
         else:
-            # Devolver un mensaje de error si el resultado del análisis es None
             return "Error de sintaxis: el parser no pudo procesar la entrada correctamente."
     except Exception as e:
-        # Manejar cualquier excepción que ocurra durante el análisis
         print(f"Error al analizar la entrada: {e}")
         return []
-    
-#script = f"var car letra = 'a';"
-#execute_parser(script)
 
 def execute_python(script):
-    #antes del return se llama al interpreter
-    return f"print('{script}')"
+    parse_result = parse(script)
+    interpreter = Interpreter()
+    output_obj = interpreter.execute(parse_result)
+    print(output_obj.output.strip())
+    if isinstance(output_obj.output, str):  # Verificar que es un string
+        exec(output_obj.output)
+    else:
+        print("El código generado no es un string:", type(output_obj.output))
+    return output_obj.output

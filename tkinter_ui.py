@@ -16,15 +16,14 @@ def procesar():
     text_area_lexico.insert(tk.END, resultado_parser)
 
     try:
-        # Generar el código Python
         codigo_python = execute_python(entrada)
-        print("Código Python generado:")
-        print(codigo_python)  # Imprimir en la consola para depuración
+        #print("Código Python generado:")
+        #print(codigo_python)  # Imprimir en la consola para depuración
 
         # Ejecutar el código Python generado y capturar la salida
         old_stdout = sys.stdout
         redirected_output = sys.stdout = StringIO()
-        exec(codigo_python)  # Ejecutar el código generado
+        exec(codigo_python)
         sys.stdout = old_stdout
         salida_python = redirected_output.getvalue()
 
