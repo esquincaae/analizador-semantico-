@@ -19,9 +19,7 @@ imprimir(suma);
 
 imprimir("esto es un imprimir");
 
-func test() {
-    imprimir("esto es una funcion");
-}
+func test() {imprimir("esto es una funcion");}
 
 Para(var ent i=0; i<3; i++){
     imprimir("esto es un ciclo for"); 

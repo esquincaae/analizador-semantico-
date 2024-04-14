@@ -28,13 +28,13 @@ t_PM = r'\+\+|--'
 
 def t_STRING(t):
     r'"([^;()\[\]{}]|\\")*"'
-    t.value = t.value[1:-1]  # Elimina las comillas dobles al principio y al final del string
+    #t.value = t.value[1:-1]  # Elimina las comillas dobles al principio y al final del string
     return t
 
 
 def t_CHAR(t):
     r"\'([^'\\]|\\.)\'"
-    t.value = t.value[1:-1]  # Elimina las comillas
+    #t.value = t.value[1:-1]  # Elimina las comillas
     return t
 
 def t_BOOLEAN(t):
