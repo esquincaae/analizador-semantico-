@@ -6,9 +6,9 @@ func = []
 
 def generate_code(parsers):
     global out_pps
-    print(parsers)
+    #print(parsers)
     for parser in parsers:
-        print(parser['type'])
+        #print(parser['type'])
         if parser['type'] == 'for_decl':
             if parser['init']['identifier'] not in variables:
                 variables.append(parser['init']['identifier'])
@@ -24,11 +24,14 @@ def generate_code(parsers):
                     for_out.append(parser['body'][0]['value'])
             return for_out
         elif parser['type'] == 'print_stmt':
-            print("Entre al print")
+            #print("Entre al print")
+            #print(parser['value'][0])
             if parser['value'] in variables:
                 out_pps += f"{value_variable[variables.index(parser['value'])]}\n"
-            else:
+            elif parser['value'][0] == '"':
                 out_pps += f"{parser['value']}\n"
+            else:
+                out_pps += "VARIABLE NO DECLARADA"
         elif parser['type'] == 'var_decl':
             if parser['identifier'] not in variables:
                 if parser['var_type'] == 'ent':

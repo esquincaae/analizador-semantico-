@@ -19,5 +19,4 @@ def execute_parser(script):
 def execute_python(script):
     parse_result = parse(script)
     output_obj = interpreter.generate_code(parse_result)
-    print("mampo", output_obj)
     return output_obj
