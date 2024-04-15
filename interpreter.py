@@ -1,120 +1,101 @@
-class Interpreter:
-    def __init__(self):
-        self.output = InterpreterOutput()
+for_out = []
+variables = []
+value_variable = []
+out_pps = ""
+func = []
 
-    def analyze_var_decl(self, var_decl):
-        self.output.add_variable(var_decl['identifier'], var_decl['value'], var_decl['var_type'])
+def generate_code(parsers):
+    global out_pps
+    print(parsers)
+    for parser in parsers:
+        print(parser['type'])
+        if parser['type'] == 'for_decl':
+            if parser['init']['identifier'] not in variables:
+                variables.append(parser['init']['identifier'])
+                value_variable.append(parser['init']['value'])
+            else:
+                out_pps += f"YA DECLARADA\n"
 
-    def analyze_condition(self, cond):
-        if len(cond) == 4:
-            _, left, operator, right = cond
-            return f"{left} {operator} {right}"
-        else:
-            raise ValueError("Condición del bucle for no válida: debe ser una tupla de cuatro elementos")
+            for i in range(parser['cond'][3]):
+                value_variable[variables.index(parser['init']['identifier'])] += 1
+                if parser['body'][0]['value'] in variables:
+                    for_out.append(value_variable[variables.index(parser['body'][0]['value'])])
+                else:
+                    for_out.append(parser['body'][0]['value'])
+            return for_out
+        elif parser['type'] == 'print_stmt':
+            print("Entre al print")
+            if parser['value'] in variables:
+                out_pps += f"{value_variable[variables.index(parser['value'])]}\n"
+            else:
+                out_pps += f"{parser['value']}\n"
+        elif parser['type'] == 'var_decl':
+            if parser['identifier'] not in variables:
+                if parser['var_type'] == 'ent':
+                    if isinstance(parser['value'], int):
+                        variables.append(parser['identifier'])
+                        value_variable.append(parser['value'])
+                    else:
+                        out_pps += f"Error de tipo: se esperaba un entero, se obtuvo {parser['value']}\n"
 
-    def analyze_increment(self, inc):
-        # Asume que el incremento es una tupla como ('i', '++')
-        if len(inc) == 3:
-            _, identifier, op = inc
-            if op == '++':
-                return f"{identifier} += 1"
-            elif op == '--':
-                return f"{identifier} -= 1"
-        else:
-            raise ValueError("Incremento del bucle for no válido: debe ser una tupla de tres elementos")
+                elif parser['var_type'] == 'flot':
+                    if isinstance(parser['value'], float):
+                        variables.append(parser['identifier'])
+                        value_variable.append(parser['value'])
+                    else:
+                        out_pps += f"Error de tipo: se esperaba un flotante, se obtuvo {parser['value']}\n"
 
-    def analyze_for_decl(self, for_decl):
-        init = self.analyze_var_decl(for_decl['init']) if for_decl['init'].get('type') == 'var_decl' else ""
-        cond = self.analyze_condition(for_decl['cond'])
-        inc = self.analyze_increment(for_decl['inc'])
-        body_statements = [self.execute_statement(stmt) for stmt in for_decl['body']]
-        body = '\n    '.join(filter(None, body_statements))
-        #
-        #
-        loop = f"{init}\nwhile {cond}:\n    {inc}\n    {body}"
-        self.output.add_code(loop)
+                elif parser['var_type'] == 'cad':
+                    if parser['value'].startswith('"') and parser['value'].endswith('"'):
+                        variables.append(parser['identifier'])
+                        value_variable.append(parser['value'])
+                    else:
+                        out_pps += f"Error de tipo: se esperaba una cadena, se obtuvo {parser['value']}\n"
 
-    def analyze_func_decl(self, func_decl):
-        func_name = func_decl['name']
-        # Asumimos que no hay parámetros, simplificando el manejo de la llamada
-        body_statements = [self.execute_statement(stmt) for stmt in func_decl['body']]
-        body = '\n    '.join(filter(None, body_statements))
-        if body.strip():  # Si el cuerpo está vacío, inserta 'pass' para asegurar una función válida
-            body = "pass"
-        func_def = f"def {func_name}():\n    {body}\n"
-        func_call = f"{func_name}()"  # Genera la llamada a la función
-        # Añade la definición de la función y la llamada a la salida
-        self.output.add_code(func_def + func_call + '\n')
+                elif parser['var_type'] == 'car':
+                    if parser['value'].startswith("'") and parser['value'].endswith("'") and len(
+                            parser['value']) == 3:
+                        variables.append(parser['identifier'])
+                        value_variable.append(parser['value'])
+                    else:
+                        out_pps += f"Error de tipo: se esperaba un caracter, se obtuvo {parser['value']}\n"
 
-    def analyze_if_decl(self, if_decl):
-        condition = self.analyze_condition(if_decl['condition'])
-        body_statements = [self.execute_statement(stmt) for stmt in if_decl['body']]
-        body = '\n    '.join(filter(None, body_statements))
-        if_body = f"if {condition}:\n    {body}"
-        
-        if if_decl['else']:
-            else_body = self.analyze_else_decl(if_decl['else'])
-            if_body += else_body
-        
-        self.output.add_code(if_body)
+                elif parser['var_type'] == 'bool':
+                    if parser['value'] == 'verdadero' or parser['value'] == 'falso':
+                        variables.append(parser['identifier'])
+                        value_variable.append(parser['value'])
+                    else:
+                        out_pps += f"Error de tipo: se esperaba un boolean, se obtuvo {parser['value']}\n"
 
-    def analyze_else_decl(self, else_decl):
-        if else_decl is None:
-            return ""
-        body_statements = [self.execute_statement(stmt) for stmt in else_decl['body']]
-        body = '\n    '.join(filter(None, body_statements))
-        return f"\nelse:\n    {body}"
+                else:
+                    out_pps += f"Error de tipo: tipo de variable no reconocido\n"
 
-    def analyze_print(self, print_stmt):
-        # El argumento print_stmt contiene el valor a imprimir
-        value = print_stmt['value']
-        # Añade la instrucción de impresión al output del código
-        self.output.add_print(value)
+            else:
+                out_pps += f"YA DECLARADA\n"
 
-    def execute_statement(self, stmt):
-        if stmt['type'] == 'var_decl':
-            return self.analyze_var_decl(stmt)
-        elif stmt['type'] == 'print_stmt':
-            self.analyze_print(stmt)
-            return ""
-        elif stmt['type'] == 'if_decl':
-            self.analyze_if_decl(stmt)
-            return ""
-        elif stmt['type'] == 'else_decl':
-            self.analyze_else_decl(stmt)
-        return ""
-
-    def execute(self, parse_output):
-        for node in parse_output:
-            if node['type'] == 'var_decl':
-                self.analyze_var_decl(node)
-            elif node['type'] == 'print_stmt':
-                self.analyze_print(node)
-            elif node['type'] == 'for_decl':
-                self.analyze_for_decl(node)
-            elif node['type'] == 'func_decl':
-                self.analyze_func_decl(node)
-            elif node['type'] == 'if_decl':
-                self.analyze_if_decl(node)
-            elif node['type'] == 'else_decl':
-                self.analyze_else_decl(node)
-        return self.output
-
-
-
-
-class InterpreterOutput:
-    def __init__(self):
-        self.variables = {}
-        self.output = ""
-
-    def add_variable(self, name, value, var_type):
-        self.variables[name] = {'type': var_type, 'value': value}
-        self.output += f"{name} = {value}\n"
-
-    def add_print(self, value):
-        self.output += f"print({value})\n"
-
-
-    def add_code(self, code):
-        self.output += code + "\n"
+        elif parser['type'] == 'if_decl':
+            if parser['condition'][1] in variables:
+                validation = f"{value_variable[variables.index(parser['condition'][1])]} {parser['condition'][2]} {parser['condition'][-1]}"
+                if eval(validation):
+                    generate_code(parser['body'])
+                else:
+                    generate_code(parser['else']['body'])
+            elif parser['condition'][-1] in variables:
+                validation = f"{parser['condition'][1]} {parser['condition'][2]} {value_variable[variables.index(parser['condition'][-1])]}"
+                if eval(validation):
+                    generate_code(parser['body'])
+                else:
+                    generate_code(parser['else']['body'])
+            elif parser['condition'][1] in variables and parser['condition'][-1] in variables:
+                validation = f"{value_variable[variables.index(parser['condition'][1])]} {parser['condition'][2]} {value_variable[variables.index(parser['condition'][-1])]}"
+                if eval(validation):
+                    generate_code(parser['body'])
+                else:
+                    generate_code(parser['else']['body'])
+        elif parser['type'] == 'func_decl':
+            if parser['name'] not in func:
+                func.append(parser['name'])
+                generate_code(parser['body'])
+            else:
+                out_pps += f"YA DECLARADA\n"
+    return out_pps

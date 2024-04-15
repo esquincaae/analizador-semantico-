@@ -1,10 +1,14 @@
 import tkinter as tk
 from tkinter import messagebox
 from main import execute_parser, execute_python
-import sys
-from io import StringIO
+import interpreter
 
 def procesar():
+    interpreter.variables = []
+    interpreter.value_variable = []
+    interpreter.func = []
+    interpreter.for_out = []
+    interpreter.out_pps = ""
     entrada = text_area_entrada.get('1.0', tk.END).strip()  # Obtener y limpiar la entrada
     if not entrada:
         messagebox.showerror("Error", "La entrada no puede estar vacía.")
@@ -16,20 +20,10 @@ def procesar():
     text_area_lexico.insert(tk.END, resultado_parser)
 
     try:
-        codigo_python = execute_python(entrada)
-        #print("Código Python generado:")
-        #print(codigo_python)  # Imprimir en la consola para depuración
-
-        # Ejecutar el código Python generado y capturar la salida
-        old_stdout = sys.stdout
-        redirected_output = sys.stdout = StringIO()
-        exec(codigo_python)
-        sys.stdout = old_stdout
-        salida_python = redirected_output.getvalue()
-
-        # Mostrar la salida en la interfaz gráfica
         text_area_python.delete('1.0', tk.END)
-        text_area_python.insert(tk.END, salida_python)
+        codigo_python = execute_python(entrada)
+        print(codigo_python)
+        text_area_python.insert(tk.END, codigo_python)
 
         messagebox.showinfo("Éxito", "Script procesado y ejecutado.")
     except Exception as e:
